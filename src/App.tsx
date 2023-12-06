@@ -1,9 +1,19 @@
 import Navbar from './components/Navbar'
+import { ReactElement } from 'react'
 
-function App() {
+interface Props {
+    children: ReactElement
+}
+
+function App({ children }: Props) {
     return (
         <>
-            <Navbar />
+            <header>
+                <Navbar />
+            </header>
+            <main className="container mx-auto py-8">
+                { children }
+            </main>
         </>
     )
 }
