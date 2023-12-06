@@ -1,18 +1,14 @@
 import Navbar from './components/Navbar'
-import { ReactElement } from 'react'
+import { Outlet } from "react-router-dom";
 
-interface Props {
-    children: ReactElement
-}
-
-function App({ children }: Props) {
+function App() {
     return (
         <>
             <header>
                 <Navbar />
             </header>
             <main className="container mx-auto py-8">
-                { children }
+                <Outlet />
             </main>
         </>
     )
