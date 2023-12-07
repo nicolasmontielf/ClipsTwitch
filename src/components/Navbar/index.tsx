@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-    const [isHomePage, setIsHomePage] =useState<boolean>(false)
+    const [isHomePage, setIsHomePage] = useState<boolean>(false)
     const location = useLocation();
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function Navbar() {
     }, [location])
 
     return (
-        <nav className="bg-white border-gray-200">
+        <nav className="bg-purple-700 border-gray-200">
             <div className="max-w-screen-xl grid grid-cols-3 mx-auto p-4">
                 <div>
                     <Logo />
