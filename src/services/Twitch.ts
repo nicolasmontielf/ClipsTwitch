@@ -21,7 +21,10 @@ function handleError(error: any) {
 export async function getClips(params: ClipsRequestParams): Promise<TwitchClipResponse> {
     try {
         const { data } = await instance.get<TwitchClipResponse>('/clips', {
-            params: params
+            params: {
+                started_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+                ...params
+            }
         })
         return data
     } catch (error) {
