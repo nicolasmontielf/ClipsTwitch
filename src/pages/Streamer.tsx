@@ -1,12 +1,32 @@
 import Header from '../components/Streamer/Header'
 import Filters from '../components/Streamer/Filters'
 import ClipItem from '../components/Streamer/ClipItem'
+import { useEffect, useState } from 'react'
+import { getUser } from '../services/Twitch'
+import { useParams } from "react-router-dom";
+import { UserData } from '../types'
 
 export default function Streamer() {
+    const [streamer, setStreamer] = useState<UserData>()
+    const [userNotFound, setUserNotFound] = useState(false)
+    const { streamerLogin } = useParams();
+
+    useEffect(() => {
+        getUser(streamerLogin!).then((streamerData) => {
+            setStreamer(streamerData)
+        })
+        .catch(() => {
+            setUserNotFound(true)
+        })
+    }, [streamerLogin])
+
     return (
+        userNotFound
+            ? <UserNotFoundComponent />
+            :
         <>
             <header>
-                <Header />
+                <Header streamer={streamer} />
             </header>
             <main className="mt-5">
                 <div className="flex flex-wrap justify-center">
@@ -30,5 +50,15 @@ export default function Streamer() {
 
             </main>
         </>
+    )
+}
+
+function UserNotFoundComponent() {
+    return (
+        <div className="flex justify-center items-center h-screen">
+            <h2 className="text-4xl font-semibold text-center">
+                Usuario no encontrado
+            </h2>
+        </div>
     )
 }

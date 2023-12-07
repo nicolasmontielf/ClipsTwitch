@@ -29,7 +29,8 @@ function SearchButton({ streamer }: { streamer: string }) {
         if (!streamer) {
             return;
         }
-        navigate(`/streamer/${streamer}`)
+        const parsed = streamer.trim().toLocaleLowerCase()
+        navigate(`/streamer/${parsed}`)
     }
 
     return (

@@ -4,8 +4,8 @@ import type { TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserRespon
 const instance = axios.create({
     baseURL: 'https://api.twitch.tv/helix',
     headers: {
-        'Client-Id': import.meta.env.VITE_TWITCH_REDIRECT_URI,
-        'Authorization': localStorage.getItem('accessToken')
+        'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
     }
 })
 
@@ -36,6 +36,11 @@ export async function getUser(login: string): Promise<UserData> {
                 login
             }
         })
+
+        if (data.data.length === 0) {
+            throw new Error('User not found')
+        }
+
         return data.data[0]
     } catch (error) {
         throw handleError(error)
