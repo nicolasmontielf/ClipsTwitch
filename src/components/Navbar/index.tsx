@@ -13,7 +13,7 @@ export default function Navbar() {
     }, [location])
 
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+        <nav className="bg-white border-gray-200">
             <div className="max-w-screen-xl grid grid-cols-3 mx-auto p-4">
                 <div>
                     <Logo />
