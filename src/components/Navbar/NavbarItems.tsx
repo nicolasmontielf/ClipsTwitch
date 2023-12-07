@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 export default function NavbarItems() {
     const items = [
         { url: '/', label: 'Home' },
+        { url: '/about', label: 'About' },
         { url: '/contact', label: 'Contact' },
-        { url: '/streamer/illojuan', label: 'Streamer' },
     ];
 
     return (
