@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import SearchInput from '../components/Common/SearchInput'
 
 export default function Home() {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -30,15 +31,20 @@ export default function Home() {
                     <div className="mt-8">
                         {
                             isLoggedIn
-                            ? <p className="text-gray-700 dark:text-gray-300">You are logged in!</p>
+                            ? SearchForm()
                             : logInButton()
                         }
-                        
                     </div>
                 </div>
                 
             </div>
         </div>
+    )
+}
+
+function SearchForm() {
+    return (
+        <SearchInput />
     )
 }
 

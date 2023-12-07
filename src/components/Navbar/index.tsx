@@ -1,22 +1,36 @@
 import Logo from "./Logo";
 import NavbarItems from './NavbarItems'
-import SearchInput from './SearchInput'
+import SearchInput from '../Common/SearchInput'
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+    const [isHomePage, setIsHomePage] =useState<boolean>(false)
+    const location = useLocation();
+
+    useEffect(() => {
+        location.pathname === '/' ? setIsHomePage(true) : setIsHomePage(false)
+    }, [location])
+
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div className="max-w-screen-xl grid grid-cols-3 mx-auto p-4">
                 <div>
                     <Logo />
                 </div>
-                
-                <div className="flex md:order-2">
-                    <SearchInput />
-                </div>
 
-                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
+                <div
+                    className="items-center justify-center flex md:w-auto" id="navbar-search"
+                >
                     <NavbarItems />
                 </div>
+
+                <div className="flex justify-end w-full" style={isHomePage ? { display: 'none' } : { display: 'flex' }}>
+                    <div className="w-full max-w-xs">
+                        <SearchInput />
+                    </div>
+                </div>
+
             </div>
         </nav>
 
