@@ -49,9 +49,12 @@ export default function Streamer() {
 
                                 {/* Clips */}
                                 <div className="mt-5">
-                                    <ClipsContainer streamer={streamer} />
+                                    {
+                                        streamer?.id && (
+                                            <ClipsContainer streamer={streamer} />
+                                        )
+                                    }
                                 </div>
-
                             </main>
                         </>
                     )
