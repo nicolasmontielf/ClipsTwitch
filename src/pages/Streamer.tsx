@@ -1,14 +1,16 @@
 import Header from '../components/Streamer/Header'
 import Filters from '../components/Streamer/Filters'
-import ClipItem from '../components/Streamer/ClipItem'
+import ClipsContainer from '../components/Streamer/ClipsContainer'
 import { useEffect, useState } from 'react'
-import { getUser, getClips } from '../services/Twitch'
+import { getUser } from '../services/Twitch'
 import { useParams } from "react-router-dom";
-import { UserData, TwitchClipResponse } from '../types'
+import { UserData } from '../types'
 
 export default function Streamer() {
     const [streamer, setStreamer] = useState<UserData>()
     const [userNotFound, setUserNotFound] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+
     const { streamerLogin } = useParams();
 
     // Handle user data
@@ -19,51 +21,40 @@ export default function Streamer() {
         .catch(() => {
             setUserNotFound(true)
         })
+        .finally(() => {
+            setIsLoading(false)
+        })
     }, [streamerLogin])
 
-    // Clips data
-    const [clips, setClips] = useState<TwitchClipResponse>()
-    useEffect(() => {
-        if (streamer?.id) {
-            getClips({ broadcaster_id: streamer.id }).then((clipsData) => {
-                setClips(clipsData)
-            })
-            .catch(() => {
-                console.error("Error getting clips")
-            })
-        }
-    }, [streamer])
-
     return (
-        userNotFound
-            ? <UserNotFoundComponent />
+        isLoading
+            ? isLoadingComponent()
             :
-        <>
-            <header>
-                <Header streamer={streamer} />
-            </header>
-            <main className="mt-5">
-                <div className="flex flex-wrap justify-center">
-                    <div className="w-[30%]">
-                        <Filters />
-                    </div>
-                </div>
+                userNotFound
+                    ? <UserNotFoundComponent />
+                    : (
+                        <>
+                            <header>
+                                <Header streamer={streamer} />
+                            </header>
 
-                <div className="mt-5">
-                    <div className="grid grid-cols-4">
-                        {
-                            (clips?.data ?? []).map((item) => (
-                                <div key={item.id} className="p-2">
-                                    <ClipItem clip={item} />
+                            {/* Clips container */}
+                            <main className="mt-5">
+                                {/* Filters for clips */}
+                                <div className="flex flex-wrap justify-center">
+                                    <div className="w-[30%]">
+                                        <Filters />
+                                    </div>
                                 </div>
-                            ))
-                        }
-                    </div>
 
-                </div>
+                                {/* Clips */}
+                                <div className="mt-5">
+                                    <ClipsContainer streamer={streamer} />
+                                </div>
 
-            </main>
-        </>
+                            </main>
+                        </>
+                    )
     )
 }
 
@@ -73,6 +64,14 @@ function UserNotFoundComponent() {
             <h2 className="text-4xl font-semibold text-center">
                 Usuario no encontrado
             </h2>
+        </div>
+    )
+}
+
+function isLoadingComponent() {
+    return (
+        <div className="flex justify-center">
+            <h1 className="text-center text-2xl">Loading...</h1>
         </div>
     )
 }
