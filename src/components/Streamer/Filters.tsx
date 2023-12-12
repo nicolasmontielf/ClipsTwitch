@@ -1,14 +1,56 @@
+// import SelectSearch from 'react-select-search';
+import { formatRFC3339 as format, subDays } from 'date-fns'
+import ClipContext from '../../context/ClipContext'
+import { ChangeEvent, useContext } from 'react'
+
 export default function Filters() {
+    const context = useContext(ClipContext)
+
+    const options = [
+        { name: 'Todo el tiempo', value: '2001-12-08T00:00:00-00:00' },
+        { name: 'Últimas 24 horas', value: format(subDays(new Date(), 1)) },
+        { name: 'Última semana', value: format(subDays(new Date(), 7)) },
+        { name: 'Último mes', value: format(subDays(new Date(), 30)) },
+        { name: 'Último año', value: format(subDays(new Date(), 365)) },
+    ]
+
+    function handleDateChange(event: ChangeEvent<HTMLSelectElement>) {
+        context.setClips({
+            clips: [],
+            cursor: undefined
+        })
+        context.setFilters((prevState: any) => {
+            return {
+                ...prevState,
+                started_at: event.target.value
+            }
+        })
+    }
+
     return (
-        <div className="w-full">
-            <label className="block mb-2 text-sm font-medium text-gray-900">Select an option</label>
-            {/* <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
-            </select> */}
+        <div className="grid grid-cols-2">
+            <div className="col-span-1">
+                <label className="block mb-2 text-sm font-medium text-gray-900">Fecha</label>
+                <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    onChange={handleDateChange}
+                >
+                    {
+                        options.map((option, index) => (
+                            <option
+                                key={`options_time_${index}`}
+                                value={option.value}
+                            >
+                                {option.name}
+                            </option>
+                        ))
+                    }
+                </select>
+            </div>
+
+            <div className="col-span-1">
+            </div>
         </div>
+        
     )
 }

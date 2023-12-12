@@ -44,7 +44,7 @@ export interface TwitchClipResponse {
 }
 
 export interface ClipsRequestParams {
-    broadcaster_id: string
+    broadcaster_id?: string
     started_at?: string
     ended_at?: string
     before?: string

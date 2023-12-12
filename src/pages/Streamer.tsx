@@ -4,12 +4,15 @@ import ClipsContainer from '../components/Streamer/ClipsContainer'
 import { useEffect, useState } from 'react'
 import { getUser } from '../services/Twitch'
 import { useParams } from "react-router-dom";
-import { UserData } from '../types'
+import { UserData, ClipsRequestParams } from '../types'
+import ClipContext from '../context/ClipContext'
 
 export default function Streamer() {
     const [streamer, setStreamer] = useState<UserData>()
-    const [userNotFound, setUserNotFound] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [userNotFound, setUserNotFound] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [filters, setFilters] = useState<Partial<ClipsRequestParams>>({})
+    const [clips, setClips] = useState({})
 
     const { streamerLogin } = useParams();
 
@@ -17,6 +20,10 @@ export default function Streamer() {
     useEffect(() => {
         getUser(streamerLogin!).then((streamerData) => {
             setStreamer(streamerData)
+            setFilters((prevState) => ({
+                ...prevState,
+                broadcaster_id: streamerData.id
+            }))
         })
         .catch(() => {
             setUserNotFound(true)
@@ -33,7 +40,12 @@ export default function Streamer() {
                 userNotFound
                     ? <UserNotFoundComponent />
                     : (
-                        <>
+                        <ClipContext.Provider value={{
+                            filters,
+                            setFilters,
+                            clips,
+                            setClips
+                        }}>
                             <header>
                                 <Header streamer={streamer} />
                             </header>
@@ -51,12 +63,12 @@ export default function Streamer() {
                                 <div className="mt-5">
                                     {
                                         streamer?.id && (
-                                            <ClipsContainer streamer={streamer} />
+                                            <ClipsContainer />
                                         )
                                     }
                                 </div>
                             </main>
-                        </>
+                        </ClipContext.Provider>
                     )
     )
 }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse } from '../types'
+import format from 'date-fns/formatRFC3339'
 
 const instance = axios.create({
     baseURL: 'https://api.twitch.tv/helix',
@@ -22,7 +23,7 @@ export async function getClips(params: ClipsRequestParams): Promise<TwitchClipRe
     try {
         const { data } = await instance.get<TwitchClipResponse>('/clips', {
             params: {
-                started_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString(),
+                ended_at: format(new Date()),
                 ...params
             }
         })

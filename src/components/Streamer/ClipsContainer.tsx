@@ -1,37 +1,38 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useContext } from 'react'
 import { getClips } from '../../services/Twitch'
-import { UserData, ClipData } from '../../types'
 import ClipItem from './ClipItem'
+import ClipContext from '../../context/ClipContext'
 
-type Props = {
-    streamer: UserData
-}
-
-export default function ClipsContainer({ streamer }: Props) {
-    const [clips, setClips] = useState<ClipData[]>([])
-    const [cursor, setCursor] = useState<string>()
+export default function ClipsContainer() {
+    const context = useContext(ClipContext)
 
     useEffect(() => {
-        (async () => getMoreClips())()
-    }, [])
+        (async () => await getMoreClips())()
+    }, [context.filters])
 
-    function getMoreClips() {
-        getClips({ broadcaster_id: streamer.id, after: cursor }).then((clipsData) => {
-            setClips((prevState) => {
-                return [...prevState, ...(clipsData.data ?? [])]
+    async function getMoreClips() {
+        try {
+            const { data, pagination } = await getClips({
+                ...context.filters,
+                after: context.clips.cursor
             })
-            setCursor(clipsData.pagination.cursor ?? undefined)
-        })
-        .catch(() => {
+    
+            context.setClips((prevState: any) => {
+                return {
+                    clips: [...(prevState.clips ?? []), ...(data ?? [])],
+                    cursor: pagination.cursor
+                }
+            })
+        } catch (error) {
             console.error("Error getting clips")
-        })
+        }
     }
 
     return (
         <>
             <div className="grid grid-cols-4">
                 {
-                    clips.map((item) => (
+                    (context.clips.clips ?? []).map((item: any) => (
                         <div key={item.id} className="p-2">
                             <ClipItem clip={item} />
                         </div>
@@ -40,7 +41,7 @@ export default function ClipsContainer({ streamer }: Props) {
             </div>
 
             {
-                cursor && (
+                context.clips.cursor && (
                     <div className="flex w-full justify-center mt-5">
                         <button
                             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-purple-700 border-purple-800 border bg-transparent rounded-lg hover:bg-purple-800 hover:text-white"
