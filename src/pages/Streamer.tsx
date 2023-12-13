@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { UserData, ClipsRequestParams } from '../types'
 import ClipContext from '../context/ClipContext'
 
-export default function Streamer() {
+export default function Streamer(): JSX.Element {
     const [streamer, setStreamer] = useState<UserData>()
     const [userNotFound, setUserNotFound] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -16,7 +16,7 @@ export default function Streamer() {
 
     const { streamerLogin } = useParams();
 
-    function resetOnStreamerChange() {
+    function resetOnStreamerChange(): void {
         setStreamer(undefined)
         setUserNotFound(false)
         setIsLoading(true)
@@ -44,41 +44,40 @@ export default function Streamer() {
 
     return (
         isLoading
-            ? isLoadingComponent()
-            :
-                userNotFound
-                    ? <UserNotFoundComponent />
-                    : (
-                        <ClipContext.Provider value={{
-                            filters,
-                            setFilters,
-                            clips,
-                            setClips
-                        }}>
-                            <header>
-                                <Header streamer={streamer} />
-                            </header>
+            ? <IsLoadingComponent />
+            : userNotFound
+                ? <UserNotFoundComponent />
+                : (
+                    <ClipContext.Provider value={{
+                        filters,
+                        setFilters,
+                        clips,
+                        setClips
+                    }}>
+                        <header>
+                            <Header streamer={streamer} />
+                        </header>
 
-                            {/* Clips container */}
-                            <main className="mt-5">
-                                {/* Filters for clips */}
-                                <div className="flex flex-wrap justify-center">
-                                    <div className="w-[30%]">
-                                        <Filters />
-                                    </div>
+                        {/* Clips container */}
+                        <main className="mt-5">
+                            {/* Filters for clips */}
+                            <div className="flex flex-wrap justify-center">
+                                <div className="w-[30%]">
+                                    <Filters />
                                 </div>
+                            </div>
 
-                                {/* Clips */}
-                                <div className="mt-5">
-                                    {
-                                        streamer?.id && (
-                                            <ClipsContainer />
-                                        )
-                                    }
-                                </div>
-                            </main>
-                        </ClipContext.Provider>
-                    )
+                            {/* Clips */}
+                            <div className="mt-5">
+                                {
+                                    streamer?.id && (
+                                        <ClipsContainer />
+                                    )
+                                }
+                            </div>
+                        </main>
+                    </ClipContext.Provider>
+                )
     )
 }
 
@@ -92,7 +91,7 @@ function UserNotFoundComponent() {
     )
 }
 
-function isLoadingComponent() {
+function IsLoadingComponent() {
     return (
         <div className="flex justify-center">
             <h1 className="text-center text-2xl">Loading...</h1>

@@ -1,18 +1,18 @@
-import { ClipData } from '../../types'
+import type { ClipData } from '../../types'
 
 type Props = {
     clip: ClipData
     onClose: () => void
 }
 
-export default function ClipModal({ clip, onClose }: Props) {
+export default function ClipModal({ clip, onClose }: Props): JSX.Element {
     const URL_PARENT = import.meta.env.VITE_DOMAIN;
 
     function getEmbedUrl(url: string): string {
         return `${url}&parent=${URL_PARENT}&autoplay=true`
     }
 
-    function CloseModalButton() {
+    function CloseModalButton(): JSX.Element {
         return (
             <button
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800"

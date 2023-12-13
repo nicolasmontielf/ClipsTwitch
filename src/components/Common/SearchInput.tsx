@@ -1,7 +1,7 @@
 import { useState, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SearchInput() {
+export default function SearchInput(): JSX.Element {
     const [streamer, setStreamer] = useState<string>('')
     const navigate = useNavigate()
 
@@ -21,7 +21,10 @@ export default function SearchInput() {
     }
 
     return (
-        <form className="flex w-full" onSubmit={searchStreamer}>
+        <form
+            className="flex w-full"
+            onSubmit={searchStreamer}
+        >
             <div className="relative w-full">
                 <input
                     value={streamer}
@@ -39,7 +42,7 @@ export default function SearchInput() {
     )
 }
 
-function SearchButton() {
+function SearchButton(): JSX.Element {
     return (
         <button
             type="submit"

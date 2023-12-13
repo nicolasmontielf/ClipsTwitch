@@ -1,4 +1,4 @@
-import { ClipData } from '../../types'
+import type { ClipData } from '../../types'
 import ClipModal from './ClipModal'
 import { useState } from 'react'
 
@@ -9,7 +9,7 @@ interface Props {
 export default function ClipItem({ clip }: Props) {
     const [openModal, setOpenModal] = useState<boolean>(false)
 
-    function formatSeconds(time: number) {
+    function formatSeconds(time: number): string {
         const minutes = Math.floor(time % 3600 / 60).toString().padStart(2,'0');
         const seconds = Math.floor(time % 60).toString().padStart(2,'0');
 
@@ -17,7 +17,7 @@ export default function ClipItem({ clip }: Props) {
         return `${minutes}:${seconds}`
     }
 
-    function DurationLabel() {
+    function DurationLabel(): JSX.Element {
         return (
             <span
                 className="absolute bottom-2 left-2 bg-purple-700 text-white text-sm font-semibold px-2.5 py-0.5 rounded"
@@ -27,7 +27,7 @@ export default function ClipItem({ clip }: Props) {
         )
     }
 
-    function ViewCountLabel() {
+    function ViewCountLabel(): JSX.Element {
         return (
             <span
                 className="absolute bottom-2 right-2 bg-purple-700 text-white text-sm font-semibold px-2.5 py-0.5 rounded"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import SearchInput from '../components/Common/SearchInput'
 
-export default function Home() {
+export default function Home(): JSX.Element {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
@@ -31,8 +31,8 @@ export default function Home() {
                     <div className="mt-8">
                         {
                             isLoggedIn
-                            ? SearchForm()
-                            : logInButton()
+                            ? <SearchInput />
+                            : <LogInButton />
                         }
                     </div>
                 </div>
@@ -42,13 +42,7 @@ export default function Home() {
     )
 }
 
-function SearchForm() {
-    return (
-        <SearchInput />
-    )
-}
-
-function logInButton() {
+function LogInButton(): JSX.Element {
     const twitchUrl = 'https://id.twitch.tv/oauth2/authorize';
     const clientId = import.meta.env.VITE_TWITCH_CLIENT_ID;
     const redirectUri = import.meta.env.VITE_TWITCH_REDIRECT_URI;

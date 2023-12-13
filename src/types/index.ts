@@ -1,3 +1,4 @@
+// Data from a clip from the Twitch API
 export interface ClipData {
     id: string
     url: string
@@ -18,6 +19,7 @@ export interface ClipData {
     is_featured: boolean
 }
 
+// Data from a user from the Twitch API
 export interface UserData {
     id: string
     login: string
@@ -32,10 +34,12 @@ export interface UserData {
     created_at: string
 }
 
+// Formated data from an user from the Twitch API
 export interface TwitchUserResponse {
     data: UserData[]
 }
 
+// Formated data from a clip from the Twitch API
 export interface TwitchClipResponse {
     data: ClipData[]
     pagination: {
@@ -43,6 +47,7 @@ export interface TwitchClipResponse {
     }
 }
 
+// Params from the request to get clips from the Twitch API
 export interface ClipsRequestParams {
     broadcaster_id?: string
     started_at?: string
@@ -51,12 +56,14 @@ export interface ClipsRequestParams {
     after?: string
 }
 
+// Data from a category from the Twitch API
 export interface CategoryData {
     box_art_url: string
     name: string
     id: string
 }
 
+// Formated data from a category from the Twitch API
 export interface TwitchCategoryResponse {
     data: CategoryData[]
     pagination: {

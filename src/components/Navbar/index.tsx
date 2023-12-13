@@ -4,7 +4,7 @@ import SearchInput from '../Common/SearchInput'
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
     const [isHomePage, setIsHomePage] = useState<boolean>(false)
     const location = useLocation();
 
@@ -19,13 +19,14 @@ export default function Navbar() {
                     <Logo />
                 </div>
 
-                <div
-                    className="items-center justify-center flex md:w-auto" id="navbar-search"
-                >
+                <div className="items-center justify-center flex md:w-auto" id="navbar-search">
                     <NavbarItems />
                 </div>
 
-                <div className="flex justify-end w-full" style={isHomePage ? { display: 'none' } : { display: 'flex' }}>
+                <div
+                    className="flex justify-end w-full"
+                    style={isHomePage ? { display: 'none' } : { display: 'flex' }}
+                >
                     <div className="w-full max-w-xs">
                         <SearchInput />
                     </div>
@@ -33,6 +34,5 @@ export default function Navbar() {
 
             </div>
         </nav>
-
     )
 }

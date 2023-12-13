@@ -3,7 +3,7 @@ import { getClips } from '../../services/Twitch'
 import ClipItem from './ClipItem'
 import ClipContext from '../../context/ClipContext'
 
-export default function ClipsContainer() {
+export default function ClipsContainer(): JSX.Element {
     const context = useContext(ClipContext)
 
     useEffect(() => {
@@ -13,7 +13,18 @@ export default function ClipsContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.filters])
 
-    async function getMoreClips() {
+    function LoadMoreButton(): JSX.Element {
+        return (
+            <button
+                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-purple-700 border-purple-800 border bg-transparent rounded-lg hover:bg-purple-800 hover:text-white"
+                onClick={getMoreClips}
+            >
+                Cargar mas
+            </button>
+        )
+    }
+
+    async function getMoreClips(): Promise<void> {
         try {
             const { data, pagination } = await getClips({
                 ...context.filters,
@@ -46,12 +57,7 @@ export default function ClipsContainer() {
             {
                 context.clips.cursor && (
                     <div className="flex w-full justify-center mt-5">
-                        <button
-                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-purple-700 border-purple-800 border bg-transparent rounded-lg hover:bg-purple-800 hover:text-white"
-                            onClick={getMoreClips}
-                        >
-                            Cargar mas
-                        </button>
+                        <LoadMoreButton />
                     </div>
                 )
             }

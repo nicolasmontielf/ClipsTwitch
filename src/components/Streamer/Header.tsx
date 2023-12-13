@@ -1,19 +1,19 @@
-import { UserData } from "@/types"
+import type { UserData } from "@/types"
 
 interface Props {
     streamer?: UserData
 }
 
-export default function Header({streamer}: Props) {
+export default function Header({streamer}: Props): JSX.Element {
     return (
         <div className="w-[70%] mx-auto border pb-5">
-            {/* Imagen fondo */}
+            {/* Background image */}
             <div
                 className="h-32 border bg-contain"
                 style={{backgroundImage: `url(${streamer?.offline_image_url})`}}
             ></div>
 
-            {/* Imagen perfil */}
+            {/* Profile image */}
             <div className="grid grid-cols-4 px-10">
                 <div className="mt-[-3em] mx-auto col-span-1">
                     <img

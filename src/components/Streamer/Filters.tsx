@@ -1,9 +1,8 @@
-// import SelectSearch from 'react-select-search';
 import { formatRFC3339 as format, subDays } from 'date-fns'
 import ClipContext from '../../context/ClipContext'
 import { ChangeEvent, useContext } from 'react'
 
-export default function Filters() {
+export default function Filters(): JSX.Element {
     const context = useContext(ClipContext)
 
     const options = [
@@ -14,7 +13,7 @@ export default function Filters() {
         { name: 'Último año', value: format(subDays(new Date(), 365)) },
     ]
 
-    function handleDateChange(event: ChangeEvent<HTMLSelectElement>) {
+    function handleDateChange(event: ChangeEvent<HTMLSelectElement>): void {
         context.setClips({
             clips: [],
             cursor: undefined
@@ -49,6 +48,7 @@ export default function Filters() {
             </div>
 
             <div className="col-span-1">
+                {/* TO DO */}
             </div>
         </div>
         
