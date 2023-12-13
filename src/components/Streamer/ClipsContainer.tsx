@@ -7,7 +7,10 @@ export default function ClipsContainer() {
     const context = useContext(ClipContext)
 
     useEffect(() => {
-        (async () => await getMoreClips())()
+        const fn = async () => await getMoreClips()
+        fn()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.filters])
 
     async function getMoreClips() {
