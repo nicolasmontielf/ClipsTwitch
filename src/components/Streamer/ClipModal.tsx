@@ -1,4 +1,4 @@
-import type { ClipData } from '../../types'
+import type { ClipData } from '@/types'
 
 type Props = {
     clip: ClipData

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import LogoImage from '../../assets/logo.png'
+import LogoImage from '@/assets/logo.png'
 
 export default function Logo(): JSX.Element {
     return (

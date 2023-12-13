@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import type { Dispatch } from 'react';
-import { ClipsRequestParams, ClipData } from '../types'
+import type { ClipsRequestParams, ClipData } from '@/types'
 
 type ClipType = {
     clips?: ClipData[],

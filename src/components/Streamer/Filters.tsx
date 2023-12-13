@@ -1,5 +1,5 @@
 import { formatRFC3339 as format, subDays } from 'date-fns'
-import ClipContext from '../../context/ClipContext'
+import ClipContext from '@/context/ClipContext'
 import { ChangeEvent, useContext } from 'react'
 
 export default function Filters(): JSX.Element {

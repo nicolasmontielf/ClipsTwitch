@@ -1,5 +1,5 @@
-import type { ClipData } from '../../types'
-import ClipModal from './ClipModal'
+import type { ClipData } from '@/types'
+import ClipModal from '@/components/Streamer/ClipModal'
 import { useState } from 'react'
 
 interface Props {

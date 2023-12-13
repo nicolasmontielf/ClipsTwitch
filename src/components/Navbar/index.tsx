@@ -1,6 +1,6 @@
-import Logo from "./Logo";
-import NavbarItems from './NavbarItems'
-import SearchInput from '../Common/SearchInput'
+import Logo from "@/components/Navbar/Logo";
+import NavbarItems from '@/components/Navbar/NavbarItems'
+import SearchInput from '@/components/Common/SearchInput'
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 

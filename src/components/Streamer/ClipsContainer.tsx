@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react'
-import { getClips } from '../../services/Twitch'
-import ClipItem from './ClipItem'
-import ClipContext from '../../context/ClipContext'
+import { getClips } from '@/services/Twitch'
+import ClipItem from '@/components/Streamer/ClipItem'
+import ClipContext from '@/context/ClipContext'
 
 export default function ClipsContainer(): JSX.Element {
     const context = useContext(ClipContext)

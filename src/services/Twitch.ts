@@ -1,6 +1,8 @@
 import axios from 'axios'
-import type { TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse, TwitchCategoryResponse, CategoryData } from '../types'
 import format from 'date-fns/formatRFC3339'
+import type {
+    TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse, TwitchCategoryResponse, CategoryData
+} from '@/types'
 
 const instance = axios.create({
     baseURL: 'https://api.twitch.tv/helix',
