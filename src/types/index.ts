@@ -50,3 +50,16 @@ export interface ClipsRequestParams {
     before?: string
     after?: string
 }
+
+export interface CategoryData {
+    box_art_url: string
+    name: string
+    id: string
+}
+
+export interface TwitchCategoryResponse {
+    data: CategoryData[]
+    pagination: {
+        cursor: string
+    }
+}

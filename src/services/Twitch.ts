@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse } from '../types'
+import type { TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse, TwitchCategoryResponse, CategoryData } from '../types'
 import format from 'date-fns/formatRFC3339'
 
 const instance = axios.create({
@@ -46,6 +46,20 @@ export async function getUser(login: string): Promise<UserData> {
         }
 
         return data.data[0]
+    } catch (error) {
+        throw handleError(error)
+    }
+}
+
+export async function searchCategories(query: string): Promise<CategoryData[]> {
+    try {
+        const { data } = await instance.get<TwitchCategoryResponse>('/search/categories', {
+            params: {
+                query: query
+            }
+        })
+
+        return data.data
     } catch (error) {
         throw handleError(error)
     }
