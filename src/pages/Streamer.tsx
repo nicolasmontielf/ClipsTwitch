@@ -16,8 +16,17 @@ export default function Streamer() {
 
     const { streamerLogin } = useParams();
 
+    function resetOnStreamerChange() {
+        setStreamer(undefined)
+        setUserNotFound(false)
+        setIsLoading(true)
+        setFilters({})
+        setClips({})
+    }
+
     // Handle user data
     useEffect(() => {
+        resetOnStreamerChange()
         getUser(streamerLogin!).then((streamerData) => {
             setStreamer(streamerData)
             setFilters((prevState) => ({
