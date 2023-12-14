@@ -1,16 +1,18 @@
-import axios from 'axios'
+import axios, { AxiosInstance } from 'axios'
 import format from 'date-fns/formatRFC3339'
 import type {
     TwitchClipResponse, ClipsRequestParams, UserData, TwitchUserResponse, TwitchCategoryResponse, CategoryData
 } from '@/types'
 
-const instance = axios.create({
-    baseURL: 'https://api.twitch.tv/helix',
-    headers: {
-        'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
-        'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-    }
-})
+function getInstance(): AxiosInstance {
+    return axios.create({
+        baseURL: 'https://api.twitch.tv/helix',
+        headers: {
+            'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
+            'Authorization': 'Bearer ' + localStorage.getItem('twitchToken')
+        }
+    })
+}
 
 function handleError(error: any) {
     if (error?.response?.status === 401) {
@@ -23,6 +25,7 @@ function handleError(error: any) {
 
 export async function getClips(params: ClipsRequestParams): Promise<TwitchClipResponse> {
     try {
+        const instance = getInstance()
         const { data } = await instance.get<TwitchClipResponse>('/clips', {
             params: {
                 ended_at: format(new Date()),
@@ -35,8 +38,9 @@ export async function getClips(params: ClipsRequestParams): Promise<TwitchClipRe
     }
 }
 
-export async function getUser(login: string): Promise<UserData> {
+export async function getUser(login?: string): Promise<UserData> {
     try {
+        const instance = getInstance()
         const { data } = await instance.get<TwitchUserResponse>('/users', {
             params: {
                 login
@@ -55,6 +59,7 @@ export async function getUser(login: string): Promise<UserData> {
 
 export async function searchCategories(query: string): Promise<CategoryData[]> {
     try {
+        const instance = getInstance()
         const { data } = await instance.get<TwitchCategoryResponse>('/search/categories', {
             params: {
                 query: query

@@ -3,6 +3,7 @@ import HomePage from '@/pages/Home';
 import StreamerPage from '@/pages/Streamer';
 import ContactPage from '@/pages/Contact';
 import AboutPage from '@/pages/About';
+import TwitchCallbackPage from '@/pages/TwitchCallback';
 import App from '@/App'
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
                 path: "/about",
                 element: <AboutPage />,
             },
+            {
+                path: "/twitch/callback",
+                element: <TwitchCallbackPage />
+            }
         ]
     },
 ]);

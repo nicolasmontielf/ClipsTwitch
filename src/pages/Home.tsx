@@ -5,19 +5,10 @@ export default function Home(): JSX.Element {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
-        const tokenFromStorage = localStorage.getItem('accessToken');
+        const tokenFromStorage = localStorage.getItem('twitchToken');
 
         if (tokenFromStorage) {
             setIsLoggedIn(true);
-            return;
-        }
-
-        const params = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = params.get('access_token');
-
-        if (accessToken) {
-            localStorage.setItem('accessToken', accessToken);
-            window.location.hash = '';
         }
     }, []);
 

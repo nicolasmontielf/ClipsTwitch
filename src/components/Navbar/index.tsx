@@ -5,11 +5,12 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
 export default function Navbar(): JSX.Element {
-    const [isHomePage, setIsHomePage] = useState<boolean>(false)
+    const [hideSearchInput, setHideSearchInput] = useState<boolean>(false)
     const location = useLocation();
 
     useEffect(() => {
-        location.pathname === '/' ? setIsHomePage(true) : setIsHomePage(false)
+        const bannedPaths = ['/twitch/callback', '/']
+        bannedPaths.includes(location.pathname) ? setHideSearchInput(true) : setHideSearchInput(false)
     }, [location])
 
     return (
@@ -25,7 +26,7 @@ export default function Navbar(): JSX.Element {
 
                 <div
                     className="flex justify-end w-full"
-                    style={isHomePage ? { display: 'none' } : { display: 'flex' }}
+                    style={hideSearchInput ? { display: 'none' } : { display: 'flex' }}
                 >
                     <div className="w-full max-w-xs">
                         <SearchInput />
