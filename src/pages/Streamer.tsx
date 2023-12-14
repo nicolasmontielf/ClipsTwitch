@@ -62,7 +62,7 @@ export default function Streamer(): JSX.Element {
                         <main className="mt-5">
                             {/* Filters for clips */}
                             <div className="flex flex-wrap justify-center">
-                                <div className="w-[30%]">
+                                <div className="w-[60%]">
                                     <Filters />
                                 </div>
                             </div>
