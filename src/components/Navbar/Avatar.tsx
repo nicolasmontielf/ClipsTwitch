@@ -1,14 +1,18 @@
 import { useState } from 'react'
 
-export default function Avatar() {
+export default function Avatar(): JSX.Element {
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
 
-    function toggleDropdown() {
+    function toggleDropdown(): void {
         setShowDropdown((prevState) => !prevState)
     }
 
-    function TwitchItem() {
+    function TwitchItem(): JSX.Element {
         const twitchUser = JSON.parse(localStorage.getItem('twitchUser')!)
+        if (!twitchUser) {
+            return (<></>)
+        }
+
         return (
             <>
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
